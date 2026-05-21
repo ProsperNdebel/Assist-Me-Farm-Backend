@@ -9,7 +9,7 @@ import os
 
 load_dotenv()
 
-app = FastAPI(title="CropDoc Weather Backend")
+app = FastAPI(title="Farm Assistant Weather Backend")
 
 # Twilio setup
 twilio_client = Client(
@@ -32,7 +32,7 @@ class FarmerRegistration(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "CropDoc Weather Backend running"}
+    return {"status": "Farm Assistant Weather Backend running"}
 
 @app.post("/register")
 def register_farmer(farmer: FarmerRegistration):
@@ -85,14 +85,14 @@ def get_weather(location: str) -> dict:
     return response.json()
 
 def format_weather_sms(weather_data: dict, location: str) -> str:
-    """Format weather data into CROPDOC_WEATHER SMS format."""
+    """Format weather data into FARM_ASSISTANT_WEATHER SMS format."""
     main = weather_data.get("main", {})
     wind = weather_data.get("wind", {})
     rain = weather_data.get("rain", {})
     description = weather_data.get("weather", [{}])[0].get("description", "Clear")
 
     payload = {
-        "type": "CROPDOC_WEATHER",
+        "type": "FARM_ASSISTANT_WEATHER",
         "temperature": round(main.get("temp", 0), 1),
         "humidity": round(main.get("humidity", 0), 1),
         "rainfall": round(rain.get("1h", 0.0), 1),
@@ -135,4 +135,4 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(send_weather_to_all, "cron", hour="6,18")  # 6am and 6pm daily
 scheduler.start()
 
-print("CropDoc Weather Backend started. Scheduler running at 6am and 6pm daily.")
+print("Farm Assistant Weather Backend started. Scheduler running at 6am and 6pm daily.")

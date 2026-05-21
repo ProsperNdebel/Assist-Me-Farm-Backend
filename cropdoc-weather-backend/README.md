@@ -1,4 +1,4 @@
-# CropDoc Weather Backend
+# Farm Assistant Weather Backend
 
 A FastAPI microservice that fetches weather data and delivers it to registered farmers via SMS. Built for the Assist-Me-Farm platform targeting Zimbabwean farmers.
 
@@ -10,7 +10,7 @@ The service fetches real-time weather from OpenWeatherMap and sends structured S
 
 - Farmer registration and management
 - Real-time weather fetching via OpenWeatherMap
-- Structured JSON SMS payloads (`CROPDOC_WEATHER` format) parseable by the Android app
+- Structured JSON SMS payloads (`FARM_ASSISTANT_WEATHER` format) parseable by the Android app
 - Scheduled delivery at 6am and 6pm daily via APScheduler
 - Manual trigger endpoints for testing
 
@@ -101,7 +101,7 @@ The SMS body is a JSON string with the following structure:
 
 ```json
 {
-  "type": "CROPDOC_WEATHER",
+  "type": "FARM_ASSISTANT_WEATHER",
   "temperature": 24.5,
   "humidity": 68.0,
   "rainfall": 0.0,
@@ -111,7 +111,7 @@ The SMS body is a JSON string with the following structure:
 }
 ```
 
-The Android app parses this `CROPDOC_WEATHER` payload to update the local weather display without requiring an internet connection on the device.
+The Android app parses this `FARM_ASSISTANT_WEATHER` payload to update the local weather display without requiring an internet connection on the device.
 
 ---
 
